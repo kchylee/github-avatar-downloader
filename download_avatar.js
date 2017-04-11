@@ -1,5 +1,4 @@
 var request = require('request');
-// var https = require('https');
 
 console.log('Welcome to the Github Avatar Downloader!');
 
@@ -15,18 +14,17 @@ function getRepoContributors (repoOwner, repoName, cb){
       'User-Agent': 'Github Avatar Downloader - Student Project'
     }
   }
-  request(options, callback)
+  request(options, function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var info = JSON.parse(body);
+      cb(error, info);
+    }
+  });
 }
-
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
-    console.log(info);
-  }
-}
-
 
 getRepoContributors('jquery', 'jquery', function(err, result){
-  console.log('Errors: ', err);
-  console.log('Result: ', result);
+
+  for (index in result){
+    console.log(result[index].avatar_url);
+  }
 });
