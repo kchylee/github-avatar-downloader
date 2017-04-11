@@ -2,7 +2,7 @@ var request = require('request');
 var fs = require('fs');
 
 var args = process.argv.slice(2);
-if (args == ""){
+if (args == ""){//Checks if input is valid
   console.log("Input required");
   return;
 }
