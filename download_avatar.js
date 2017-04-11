@@ -19,7 +19,7 @@ function getRepoContributors (repoOwner, repoName, cb){
       'User-Agent': 'skratchtherecord'
     }
   }
-  request(options, function callback(error, response, body) {
+  request(options, function callback(error, response, body) {//Obtain body and parse JSON to info
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body);
       cb(error, info);
@@ -29,12 +29,12 @@ function getRepoContributors (repoOwner, repoName, cb){
   })
 }
 
-function downloadImageByURL(url, filePath) {
+function downloadImageByURL(url, filePath) {//Writes image to directed location
   request.get(url)
     .pipe(fs.createWriteStream(filePath));
 }
 
-getRepoContributors(args[0], args[1], function(err, result){
+getRepoContributors(args[0], args[1], function(err, result){//Invokes getRepoContributors and scans object array
   if(!err){
     for (index in result){
     downloadImageByURL(result[index].avatar_url, "avatars/" + result[index].login + ".jpg");
